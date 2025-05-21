@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { FaSave, FaTimes, FaTrash } from 'react-icons/fa';
 import { Project } from '@/types';
@@ -403,11 +404,12 @@ export default function ProjectForm({ projectId }: ProjectFormProps) {
               </label>
               <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 dark:border-gray-600 border-dashed rounded-md">
                 {previewUrl ? (
-                  <div className="space-y-2 text-center">
-                    <img 
+                  <div className="space-y-2 text-center">                    <Image 
                       src={previewUrl} 
                       alt="Project preview" 
-                      className="mx-auto h-32 w-auto object-cover rounded" 
+                      className="mx-auto h-32 w-auto object-cover rounded"
+                      width={128}
+                      height={128}
                     />
                     <button
                       type="button"

@@ -148,7 +148,9 @@ export function isPlaceholderImage(url: string): boolean {
  */
 export function isValidImageUrl(url: string): boolean {
   if (!url) return false;
-    // Check if URL is well-formed  try {
+  
+  // Check if URL is well-formed
+  try {
     new URL(url);
   } catch {
     return false;

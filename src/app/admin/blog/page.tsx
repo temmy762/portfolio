@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaPlus, FaEdit, FaTrash, FaEye, FaSearch, FaTags } from "react-icons/fa";
 import { BlogPost } from "@/types";
@@ -216,11 +217,12 @@ export default function AdminBlog() {
                 className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden flex flex-col"
               >
                 <div className="relative h-48 bg-gray-200 dark:bg-gray-700">
-                  {post.coverImage ? (
-                    <img
+                  {post.coverImage ? (                    <Image
                       src={post.coverImage}
                       alt={post.title}
                       className="w-full h-full object-cover"
+                      fill
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     />
                   ) : (
                     <div className="flex items-center justify-center h-full text-gray-500 dark:text-gray-400">

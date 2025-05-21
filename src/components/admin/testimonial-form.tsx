@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { FaSave, FaTimes, FaTrash, FaStar } from 'react-icons/fa';
 import { Testimonial } from '@/types';
@@ -309,11 +310,12 @@ export default function TestimonialForm({ testimonialId }: TestimonialFormProps)
               </label>
               <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 dark:border-gray-600 border-dashed rounded-md">
                 {previewUrl ? (
-                  <div className="space-y-2 text-center">
-                    <img 
+                  <div className="space-y-2 text-center">                    <Image 
                       src={previewUrl} 
                       alt="Avatar preview" 
-                      className="mx-auto h-24 w-24 object-cover rounded-full border-2 border-gray-200 dark:border-gray-700" 
+                      className="mx-auto h-24 w-24 object-cover rounded-full border-2 border-gray-200 dark:border-gray-700"
+                      width={96} 
+                      height={96}
                     />
                     <button
                       type="button"

@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaPlus, FaEdit, FaTrash, FaSearch, FaStar } from "react-icons/fa";
 import { Testimonial } from "@/types";
@@ -187,11 +188,12 @@ export default function AdminTestimonials() {
                 <div className="p-6 flex-grow">
                   <div className="flex justify-between items-start mb-4">                  <div className="flex items-center">
                       <div className="flex-shrink-0">                        {testimonial.avatarUrl ? (
-                          <div className="relative h-10 w-10 rounded-full overflow-hidden">
-                            <img
+                          <div className="relative h-10 w-10 rounded-full overflow-hidden">                            <Image
                               src={testimonial.avatarUrl}
                               alt={testimonial.name}
                               className="h-10 w-10 rounded-full object-cover"
+                              width={40}
+                              height={40}
                               onError={(e) => {
                                 const target = e.target as HTMLImageElement;
                                 // Fallback to initials avatar
@@ -200,11 +202,12 @@ export default function AdminTestimonials() {
                               }}
                             />
                           </div>                        ) : (
-                          <div className="relative h-10 w-10 rounded-full overflow-hidden">
-                            <img
+                          <div className="relative h-10 w-10 rounded-full overflow-hidden">                            <Image
                               src={getAvatarPlaceholder(testimonial.name)}
                               alt={testimonial.name}
                               className="h-10 w-10 rounded-full object-cover"
+                              width={40}
+                              height={40}
                             />
                           </div>
                         )}
