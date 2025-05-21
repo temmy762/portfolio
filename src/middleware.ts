@@ -1,0 +1,44 @@
+import { NextRequest, NextResponse } from 'next/server';
+
+export function middleware(request: NextRequest) {
+  // Simplified middleware to avoid export issues
+  try {
+    // Get the pathname of the request
+    const path = request.nextUrl.pathname;
+
+    // Define public paths that don't require authentication
+    const isPublicPath = path === '/admin/login';
+    
+    // Get the token from the cookies
+    const authToken = request.cookies.get('admin_auth_token')?.value || '';
+    
+    // Redirect to login if trying to access a protected route without a token
+    if (!isPublicPath && !authToken) {
+      return NextResponse.redirect(new URL('/admin/login', request.url));
+    }
+
+    // Redirect to dashboard if trying to access login page with a token
+    if (isPublicPath && authToken) {
+      return NextResponse.redirect(new URL('/admin/dashboard', request.url));
+    }
+  } catch (error) {
+    console.error('Middleware error:', error);
+    // In case of any errors, just continue
+  }
+
+  // Continue with the request
+  return NextResponse.next();
+}
+
+// Specify the paths this middleware should run on
+export const config = {
+  matcher: [
+    '/admin',
+    '/admin/login',
+    '/admin/dashboard/:path*',
+    '/admin/projects/:path*',
+    '/admin/services/:path*',
+    '/admin/testimonials/:path*',
+    '/admin/blog/:path*',
+  ],
+};
