@@ -10,7 +10,7 @@
     "export": "next build && npm run sitemap",
     "analyze": "ANALYZE=true next build",
     "sitemap": "node ./scripts/generate-sitemap.mjs",
-    "hostinger:build": "next build && node ./scripts/generate-hostinger-sitemap.mjs",
+    "hostinger:build": "next build && node ./scripts/generate-hostinger-sitemap.mjs && node ./scripts/copy-htaccess.mjs",
     "hostinger:prepare": "npm run hostinger:build && npm run hostinger:check",
     "hostinger:check": "node ./scripts/check-hostinger-compatibility.mjs"
   },
