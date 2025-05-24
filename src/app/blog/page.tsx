@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
@@ -11,11 +10,6 @@ import { Button } from "@/components/ui/button";
 import { blogPosts } from "@/lib/data/portfolio-data";
 import { formatDate } from "@/lib/utils";
 import { BlogPost } from "@/types";
-
-export const metadata: Metadata = {
-  title: 'Blog - Alex Johnson Portfolio',
-  description: 'Articles, tutorials, and insights on web development, mobile app development, and WordPress by Alex Johnson.',
-};
 
 // Get unique tags from blog posts
 const allTags = ["All", ...new Set(blogPosts.flatMap(post => post.tags))];

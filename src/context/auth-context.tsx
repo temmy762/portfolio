@@ -20,11 +20,25 @@ type AuthContextType = {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
+// Helper for cookie management
+const setCookie = (name: string, value: string, days: number) => {
+  if (typeof window === 'undefined') return;
+  const date = new Date();
+  date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
+  document.cookie = `${name}=${value};expires=${date.toUTCString()};path=/;SameSite=Lax`;
+};
+
+const deleteCookie = (name: string) => {
+  if (typeof window === 'undefined') return;
+  document.cookie = `${name}=;path=/;expires=Thu, 01 Jan 1970 00:00:00 GMT;SameSite=Lax`;
+};
+
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-    useEffect(() => {
+
+  useEffect(() => {
     // Skip Firebase auth when running in static export
     if (typeof window === 'undefined') {
       setLoading(false);
@@ -39,10 +53,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         // Save authentication status to local storage for static export mode
         if (currentUser) {
           localStorage.setItem('admin_auth_token', 'true');
-          document.cookie = `admin_auth_token=true; path=/; max-age=${60 * 60 * 24 * 7}`;
+          setCookie('admin_auth_token', 'true', 7); // 7 days expiration
         } else {
           localStorage.removeItem('admin_auth_token');
-          document.cookie = 'admin_auth_token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT';
+          deleteCookie('admin_auth_token');
         }
         
         setLoading(false);
@@ -61,6 +75,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     try {
       const auth = getAuth(app);
       await signInWithEmailAndPassword(auth, email, password);
+      
+      // Set tokens immediately to avoid race conditions
+      localStorage.setItem('admin_auth_token', 'true');
+      setCookie('admin_auth_token', 'true', 7);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to sign in');
       throw err;
@@ -70,6 +88,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const signOut = async () => {
     setError(null);
     try {
+      // Remove tokens first to ensure user is logged out properly
+      localStorage.removeItem('admin_auth_token');
+      deleteCookie('admin_auth_token');
+      
+      // Then sign out from Firebase
       const auth = getAuth(app);
       await firebaseSignOut(auth);
     } catch (err) {

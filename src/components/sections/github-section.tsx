@@ -7,84 +7,109 @@ import { Button } from "@/components/ui/button";
 import { SectionTitle } from "@/components/ui/section-title";
 import { GithubRepo } from "@/types";
 import { GitHubService } from "@/lib/services/github-service";
+import { config } from "@/lib/config";
 
 export function GitHubSection() {
   const [repos, setRepos] = useState<GithubRepo[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
+  // Mock data for GitHub repositories
+  const mockRepos: GithubRepo[] = [
+    {
+      id: "1",
+      name: "react-portfolio",
+      description: "Modern portfolio website built with React and Next.js",
+      html_url: "https://github.com/username/react-portfolio",
+      homepage: "https://portfolio-demo.com",
+      stargazers_count: 48,
+      language: "TypeScript",
+      fork: false
+    },
+    {
+      id: "2",
+      name: "e-commerce-platform",
+      description: "Full-featured e-commerce platform with React and Node.js",
+      html_url: "https://github.com/username/e-commerce-platform",
+      homepage: "https://ecommerce-demo.com",
+      stargazers_count: 124,
+      language: "JavaScript",
+      fork: false
+    },
+    {
+      id: "3",
+      name: "wordpress-starter",
+      description: "WordPress starter template with custom theme development",
+      html_url: "https://github.com/username/wordpress-starter",
+      homepage: "",
+      stargazers_count: 37,
+      language: "PHP",
+      fork: false
+    },
+    {
+      id: "4",
+      name: "task-management-app",
+      description: "Task management application with React and Firebase",
+      html_url: "https://github.com/username/task-management-app",
+      homepage: "https://task-app-demo.com",
+      stargazers_count: 62,
+      language: "JavaScript",
+      fork: false
+    }
+  ];
+
   useEffect(() => {
     const fetchRepos = async () => {
       try {
         setIsLoading(true);
         setError(null);
+
+        // Get GitHub configuration from config
+        const { username, token } = config.github;
+
+        if (!username) {
+          console.warn('GitHub username not configured in environment variables, using mock data');
+          setRepos(mockRepos);
+          setIsLoading(false);
+          return;
+        }
+
+        // Initialize GitHub service with config
+        const githubService = new GitHubService(username, token);
         
-        // Create GitHub service - replace with your GitHub username
-        // You can add a token as the second parameter for authenticated requests
-        const githubService = new GitHubService('username');
-        
-        // Try to fetch real repositories
-        const repositories = await githubService.getRepositories(6);
-        
-        if (repositories && repositories.length > 0) {
-          setRepos(repositories);
-        } else {
-          // Fallback to mock data if API fails or returns empty
-          const mockRepos: GithubRepo[] = [
-            {
-              id: "1",
-              name: "react-portfolio",
-              description: "Modern portfolio website built with React and Next.js",
-              html_url: "https://github.com/username/react-portfolio",
-              homepage: "https://portfolio-demo.com",
-              stargazers_count: 48,
-              language: "TypeScript",
-              fork: false
-            },
-            {
-              id: "2",
-              name: "e-commerce-platform",
-              description: "Full-featured e-commerce platform with React and Node.js",
-              html_url: "https://github.com/username/e-commerce-platform",
-              homepage: "https://ecommerce-demo.com",
-              stargazers_count: 124,
-              language: "JavaScript",
-              fork: false
-            },
-            {
-              id: "3",
-              name: "wordpress-starter",
-              description: "WordPress starter template with custom theme development",
-              html_url: "https://github.com/username/wordpress-starter",
-              homepage: "",
-              stargazers_count: 37,
-              language: "PHP",
-              fork: false
-            },
-            {
-              id: "4",
-              name: "task-management-app",
-              description: "Task management application with React and Firebase",
-              html_url: "https://github.com/username/task-management-app",
-              homepage: "https://task-app-demo.com",
-              stargazers_count: 62,
-              language: "JavaScript",
-              fork: false
-            }
-          ];
+        try {
+          // Attempt to fetch repositories
+          const fetchedRepos = await githubService.getRepositories(6);
           
+          if (fetchedRepos && fetchedRepos.length > 0) {
+            setRepos(fetchedRepos);
+          } else {
+            console.warn('No GitHub repositories found, using mock data');
+            setRepos(mockRepos);
+          }
+        } catch (apiError) {
+          console.error("GitHub API error:", apiError);
+          console.warn('Failed to fetch GitHub repositories, using mock data instead');
           setRepos(mockRepos);
         }
-        setIsLoading(false);
-      } catch (err) {
-        console.error("GitHub API error:", err);
-        setError("Failed to fetch GitHub repositories. Please try again later.");
+      } catch (error) {
+        console.error("Error in GitHub section:", error);
+        setError("Failed to load GitHub projects. Using sample projects instead.");
+        setRepos(mockRepos);
+      } finally {
         setIsLoading(false);
       }
     };
-    
+
     fetchRepos();
   }, []);
+
+  // Function to handle image loading errors
+  const handleError = (e: React.SyntheticEvent<HTMLImageElement>) => {
+    const img = e.currentTarget;
+    // Fallback to a code icon if repository language icon fails to load
+    img.src = '/images/projects/default-project-placeholder.svg';
+  };
 
   return (
     <section className="py-20">
@@ -148,7 +173,7 @@ export function GitHubSection() {
                       className="text-gray-600 hover:text-green-600 dark:text-gray-400 dark:hover:text-green-500 transition-colors"
                       aria-label="GitHub Repository"
                     >
-                      <FiGithub size={20} />
+                      <FiGithub className="w-5 h-5" />
                     </a>
                     {repo.homepage && (
                       <a
@@ -158,7 +183,7 @@ export function GitHubSection() {
                         className="text-gray-600 hover:text-green-600 dark:text-gray-400 dark:hover:text-green-500 transition-colors"
                         aria-label="Live Demo"
                       >
-                        <FiExternalLink size={20} />
+                        <FiExternalLink className="w-5 h-5" />
                       </a>
                     )}
                   </div>

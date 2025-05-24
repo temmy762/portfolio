@@ -20,8 +20,8 @@ export function TestimonialCard({ testimonial, index }: TestimonialCardProps) {
       transition={{ duration: 0.5, delay: index * 0.1 }}
       className="bg-white dark:bg-gray-800 rounded-lg shadow-md hover:shadow-lg p-6 transition-shadow"
     >
-      <div className="flex items-center justify-between mb-4">
-        <div className="flex items-center">          <div className="relative w-12 h-12 rounded-full overflow-hidden mr-4">
+      <div className="flex items-center justify-between mb-4">        <div className="flex items-center">
+          <div className="relative w-12 h-12 rounded-full overflow-hidden mr-4">
             <Image
               src={testimonial.avatarUrl || getAvatarPlaceholder(testimonial.name)}
               alt={`Profile picture of ${testimonial.name}`}

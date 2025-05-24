@@ -8,6 +8,7 @@ import { SectionTitle } from "@/components/ui/section-title";
 import { Button } from "@/components/ui/button";
 import { blogPosts } from "@/lib/data/portfolio-data";
 import { formatDate } from "@/lib/utils";
+import { handleImageError, getBlogImageUrl } from "@/lib/utils/image-utils";
 
 export function BlogSection() {
   // Get the latest 3 blog posts
@@ -33,14 +34,14 @@ export function BlogSection() {
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
               className="bg-white dark:bg-gray-800 rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300"
-            >
-              <div className="relative h-48 overflow-hidden">
+            >              <div className="relative h-48 overflow-hidden">
                 <Image
-                  src={post.coverImage || "/images/placeholder-blog.jpg"}
+                  src={getBlogImageUrl(post.coverImage)}
                   alt={post.title}
                   fill
                   className="object-cover transition-transform duration-500 hover:scale-105"
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  onError={(e) => handleImageError(e)}
                 />
               </div>
               <div className="p-6">

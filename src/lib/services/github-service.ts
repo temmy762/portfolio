@@ -11,13 +11,18 @@ export class GitHubService {
     this.username = username;
     this.token = token;
   }
-
   private getAuthHeaders() {
-    return this.token
-      ? {
-          Authorization: `token ${this.token}`,
-        }
-      : {};
+    // Always include accept header for GitHub API v3
+    const headers: Record<string, string> = {
+      'Accept': 'application/vnd.github.v3+json'
+    };
+    
+    // Add authorization if token is provided
+    if (this.token) {
+      headers['Authorization'] = `Bearer ${this.token}`;
+    }
+    
+    return headers;
   }
 
   /**

@@ -97,6 +97,19 @@ Edit the data files in `src/lib/data/portfolio-data.ts` to add your:
 - UI elements: Update components in `src/components/ui/`
 - Animations: Modify animation settings in `tailwind.config.js`
 
+### CSS and Tailwind Setup
+
+This project uses Tailwind CSS for styling with a well-organized configuration:
+
+- **Base Configuration**: See `tailwind.config.js` for theme settings, plugins, and extensions
+- **Custom Components**: Reusable UI components with consistent styling
+- **Utility Classes**: Leverage Tailwind's utility-first approach for rapid development
+- **Dark Mode**: Full dark mode support via the `class` strategy
+- **Animations**: Uses `tailwindcss-animate` plugin for smooth animations
+- **CSS Variables**: Custom properties for colors and design tokens in `globals.css`
+
+For detailed information about the CSS configuration, see the [CSS Configuration Guide](./CSS_CONFIGURATION.md).
+
 ## Documentation
 
 Detailed documentation files are included in the project:

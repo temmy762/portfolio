@@ -1,0 +1,72 @@
+import { NextRequest, NextResponse } from 'next/server';
+
+export function middleware(request: NextRequest) {
+  try {
+    // Get the pathname of the request
+    const path = request.nextUrl.pathname;
+
+    // Special handling for development mode to prevent redirect loops
+    const isDevelopment = process.env.NODE_ENV === 'development';
+    
+    // Check for a special parameter to bypass authentication in development
+    const bypassAuth = isDevelopment && request.nextUrl.searchParams.has('bypass');
+    
+    // Define paths
+    const isPublicPath = path === '/admin/login';
+    const isAdminRoot = path === '/admin';
+    const isAdminPath = path.startsWith('/admin');
+    
+    // Skip middleware completely for non-admin paths
+    if (!isAdminPath) {
+      return NextResponse.next();
+    }
+    
+    // Skip middleware in development when bypass is present
+    if (bypassAuth) {
+      return NextResponse.next();
+    }
+
+    // Get the token from cookies
+    const authToken = request.cookies.get('admin_auth_token')?.value;
+    
+    // Handle '/admin' root path
+    if (isAdminRoot) {
+      if (authToken) {
+        return NextResponse.redirect(new URL('/admin/dashboard', request.url));
+      } else {
+        return NextResponse.redirect(new URL('/admin/login', request.url));
+      }
+    }
+    
+    // Redirect to login if no auth token for protected routes
+    if (!isPublicPath && !authToken) {
+      // Clear any problematic cookies to prevent loops
+      const response = NextResponse.redirect(new URL('/admin/login', request.url));
+      response.cookies.delete('admin_auth_token');
+      return response;
+    }
+
+    // Redirect to dashboard if accessing login with a token
+    if (isPublicPath && authToken) {
+      return NextResponse.redirect(new URL('/admin/dashboard', request.url));
+    }
+  } catch (error) {
+    console.error('Middleware error:', error);
+  }
+
+  // Continue with the request if no redirects needed
+  return NextResponse.next();
+}
+
+// Specify the paths this middleware should run on
+export const config = {
+  matcher: [
+    '/admin',
+    '/admin/login',
+    '/admin/dashboard/:path*',
+    '/admin/projects/:path*',
+    '/admin/services/:path*',
+    '/admin/testimonials/:path*',
+    '/admin/blog/:path*',
+  ],
+};

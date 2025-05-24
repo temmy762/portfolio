@@ -1,0 +1,22 @@
+{
+  "Tailwind Base Directive": {
+    "prefix": "@tailwind-base",
+    "body": "@tailwind base;",
+    "description": "Tailwind CSS Base Directive"
+  },
+  "Tailwind Components Directive": {
+    "prefix": "@tailwind-components",
+    "body": "@tailwind components;",
+    "description": "Tailwind CSS Components Directive"
+  },
+  "Tailwind Utilities Directive": {
+    "prefix": "@tailwind-utilities",
+    "body": "@tailwind utilities;",
+    "description": "Tailwind CSS Utilities Directive"
+  },
+  "Tailwind Layer Directive": {
+    "prefix": "@layer",
+    "body": "@layer ${1:base|components|utilities} {\n\t$2\n}",
+    "description": "Tailwind CSS Layer Directive"
+  }
+}

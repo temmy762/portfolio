@@ -7,7 +7,16 @@ const nextConfig: NextConfig = {
     distDir: 'out',
   } : {}),
   images: {
-    unoptimized: true,
+    domains: ['source.unsplash.com', 'ui-avatars.com', 'via.placeholder.com'],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: '**',
+      },
+    ],
+    dangerouslyAllowSVG: true,
+    contentDispositionType: 'attachment',
+    contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
   },
   trailingSlash: true,
 };

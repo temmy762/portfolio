@@ -40,14 +40,14 @@ export function getPlaceholderImage(
  * Get a placeholder avatar image with initials
  * 
  * @param name Person's name
- * @param bgColor Background color (hex code without #)
- * @param textColor Text color (hex code without #)
+ * @param bgColor Background color (hex code with or without #)
+ * @param textColor Text color (hex code with or without #)
  * @returns Placeholder avatar URL
  */
 export function getAvatarPlaceholder(
   name: string, 
-  bgColor = '22c55e', 
-  textColor = 'ffffff'
+  bgColor = '#22c55e', 
+  textColor = '#ffffff'
 ): string {
   // Get initials from name
   const initials = name
@@ -57,32 +57,47 @@ export function getAvatarPlaceholder(
     .toUpperCase()
     .substring(0, 2);
 
-  // Use UI Avatars service for a simple placeholder with initials
-  return `https://ui-avatars.com/api/?name=${encodeURIComponent(initials)}&background=${bgColor}&color=${textColor}&size=200`;
+  // Ensure color codes are properly formatted
+  const bg = bgColor.startsWith('#') ? bgColor : `#${bgColor}`;
+  const text = textColor.startsWith('#') ? textColor : `#${textColor}`;
+
+  // Create an SVG placeholder with initials
+  return `data:image/svg+xml,${encodeURIComponent(`
+    <svg width="200" height="200" xmlns="http://www.w3.org/2000/svg">
+      <rect width="200" height="200" fill="${bg}"/>
+      <text 
+        x="100" 
+        y="100" 
+        font-family="Arial" 
+        font-size="72" 
+        fill="${text}" 
+        text-anchor="middle" 
+        dominant-baseline="middle"
+      >${initials}</text>
+    </svg>
+  `)}`;
 }
 
 /**
  * Get a project image placeholder based on project type or category
  * 
  * @param type Project type or category
- * @param width Image width (default: 800)
- * @param height Image height (default: 600)
  * @returns Placeholder image URL
  */
 export function getProjectPlaceholder(
-  type: 'web' | 'mobile' | 'design' | 'backend' | 'other' = 'other',
-  width = 800,
-  height = 600
+  type: 'web' | 'mobile' | 'design' | 'backend' | 'other' = 'other'
 ): string {
+  // Use static SVG files for better performance and compatibility
   const placeholders = {
-    web: `https://via.placeholder.com/${width}x${height}/22c55e/ffffff?text=Web+Project`,
-    mobile: `https://via.placeholder.com/${width}x${height}/22c55e/ffffff?text=Mobile+App`,
-    design: `https://via.placeholder.com/${width}x${height}/22c55e/ffffff?text=Design+Project`,
-    backend: `https://via.placeholder.com/${width}x${height}/22c55e/ffffff?text=Backend+Project`,
-    other: `https://via.placeholder.com/${width}x${height}/22c55e/ffffff?text=Project+Image`,
+    web: `/images/projects/web-project-placeholder.svg`,
+    mobile: `/images/projects/mobile-app-placeholder.svg`,
+    design: `/images/projects/design-project-placeholder.svg`,
+    backend: `/images/projects/backend-project-placeholder.svg`,
+    other: `/images/projects/default-project-placeholder.svg`,
   };
-  
-  return placeholders[type];
+
+  // Check if the key exists, otherwise use default
+  return type in placeholders ? placeholders[type] : placeholders.other;
 }
 
 /**
@@ -92,8 +107,10 @@ export function getProjectPlaceholder(
  */
 export function handleImageError(event: React.SyntheticEvent<HTMLImageElement>) {
   const img = event.currentTarget;
-  const width = img.width || 800;
-  const height = img.height || 600;
+  const widthAttr = img.getAttribute('width');
+  const heightAttr = img.getAttribute('height');
+  const width = widthAttr ? parseInt(widthAttr, 10) : img.width || 800;
+  const height = heightAttr ? parseInt(heightAttr, 10) : img.height || 600;
   
   // Check if this is a person's image (avatar)
   const isAvatar = img.classList.contains('rounded-full') || 
@@ -101,30 +118,40 @@ export function handleImageError(event: React.SyntheticEvent<HTMLImageElement>) 
                    img.alt?.toLowerCase().includes('avatar');
   
   if (isAvatar) {
-    // For profile/avatar images, try to extract a name from alt text
+    // For profile/avatar images, use getAvatarPlaceholder
     const nameParts = img.alt ? img.alt.split('of ') : [];
     const name = nameParts.length > 1 ? nameParts[1] : 'User';
     img.src = getAvatarPlaceholder(name);
   } else {
-    // For other images, use a more contextual placeholder based on size
-    const aspectRatio = width / height;
+    // For other images, determine the type based on class or alt text
+    let type: 'web' | 'mobile' | 'design' | 'backend' | 'other' = 'other';
+    const altText = img.alt?.toLowerCase() || '';
     
-    // Select appropriate placeholder based on aspect ratio
-    if (aspectRatio > 1.3) {
-      // Landscape/banner image
-      img.src = `https://via.placeholder.com/${width}x${height}/22c55e/ffffff?text=Portfolio+Image`;
-    } else if (aspectRatio < 0.8) {
-      // Portrait image
-      img.src = `https://via.placeholder.com/${width}x${height}/22c55e/ffffff?text=Project+Image`;
-    } else {
-      // Square or near-square image
-      img.src = `https://via.placeholder.com/${width}x${height}/22c55e/ffffff?text=Image`;
+    if (altText.includes('web') || altText.includes('website')) {
+      type = 'web';
+    } else if (altText.includes('mobile') || altText.includes('app')) {
+      type = 'mobile';
+    } else if (altText.includes('design')) {
+      type = 'design';
+    } else if (altText.includes('backend') || altText.includes('server')) {
+      type = 'backend';
     }
+
+    // Use project placeholder
+    img.src = getProjectPlaceholder(type);
   }
   
-  // Add appropriate alt text
+  // Add appropriate alt text if missing
   if (!img.alt || img.alt === '') {
     img.alt = 'Image not available';
+  }
+
+  // Set explicit dimensions if missing
+  if (!widthAttr) {
+    img.setAttribute('width', String(width));
+  }
+  if (!heightAttr) {
+    img.setAttribute('height', String(height));
   }
 }
 
@@ -135,9 +162,19 @@ export function handleImageError(event: React.SyntheticEvent<HTMLImageElement>) 
  * @returns True if the URL is a placeholder
  */
 export function isPlaceholderImage(url: string): boolean {
-  return url.includes('source.unsplash.com') || 
-         url.includes('ui-avatars.com') || 
-         url.includes('placeholder.com');
+  if (!url) return false;
+
+  return (
+    // External placeholder services
+    url.includes('source.unsplash.com') || 
+    url.includes('ui-avatars.com') || 
+    url.includes('placeholder.com') ||
+    // Local project placeholders
+    url.includes('/images/projects/') && url.includes('-placeholder') ||
+    // SVG placeholder
+    (url.startsWith('data:image/svg+xml,') && 
+     (url.includes('fill="#22c55e"') || url.includes('fill=%2322c55e')))
+  );
 }
 
 /**
@@ -149,10 +186,19 @@ export function isPlaceholderImage(url: string): boolean {
 export function isValidImageUrl(url: string): boolean {
   if (!url) return false;
   
+  // Check if it's a local image path
+  if (url.startsWith('/images/')) {
+    return true;
+  }
+  
   // Check if URL is well-formed
   try {
     new URL(url);
   } catch {
+    // If it's not a valid URL but starts with /, assume it's a local path
+    if (url.startsWith('/')) {
+      return true;
+    }
     return false;
   }
   
@@ -178,4 +224,34 @@ export function isValidImageUrl(url: string): boolean {
   );
   
   return hasImageExtension || isFromImageHost || url.includes('data:image/');
+}
+
+/**
+ * Get the appropriate image URL for a project, falling back to a placeholder if needed
+ * 
+ * @param imageUrl The original image URL
+ * @param type The type of project for placeholder selection
+ * @returns The final image URL to use
+ */
+export function getProjectImageUrl(
+  imageUrl: string | undefined,
+  type: 'web' | 'mobile' | 'design' | 'backend' | 'other' = 'other'
+): string {
+  if (!imageUrl || !isValidImageUrl(imageUrl)) {
+    return getProjectPlaceholder(type);
+  }
+  return imageUrl;
+}
+
+/**
+ * Get the appropriate image URL for a blog post, falling back to a placeholder if needed
+ * 
+ * @param imageUrl The original image URL
+ * @returns The final image URL to use
+ */
+export function getBlogImageUrl(imageUrl: string | undefined): string {
+  if (!imageUrl || !isValidImageUrl(imageUrl)) {
+    return '/images/blog/default-blog-placeholder.svg';
+  }
+  return imageUrl;
 }

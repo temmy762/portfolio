@@ -27,7 +27,7 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
           src={
             isValidImageUrl(project.imageUrl) 
               ? project.imageUrl 
-              : getProjectPlaceholder((project.category as 'web' | 'mobile' | 'design' | 'backend' | 'other') || 'other')
+              : getProjectPlaceholder((project.category?.toLowerCase() as 'web' | 'mobile' | 'design' | 'backend' | 'other') || 'other')
           }
           alt={`Screenshot of ${project.title} project`}
           fill

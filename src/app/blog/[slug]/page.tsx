@@ -29,9 +29,8 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
   if (!post) {
     notFound();
   }
-
-  // Convert markdown content to HTML
-  const contentHtml = marked(post.content);
+  // Convert markdown content to HTML, with safety check
+  const contentHtml = post.content ? marked(post.content) : '<p>No content available.</p>';
   
   // Get related posts (same tags, excluding current post)
   const relatedPosts = blogPosts

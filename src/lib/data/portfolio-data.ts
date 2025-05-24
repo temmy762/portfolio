@@ -15,7 +15,7 @@ export const projects: Project[] = [
     id: '1',
     title: 'E-commerce Platform',
     description: 'A full-featured e-commerce platform with user authentication, product management, cart functionality, and payment processing.',
-    imageUrl: '/images/projects/ecommerce.jpg',
+    imageUrl: '/images/projects/ecommerce.svg',
     tags: ['Next.js', 'React', 'Node.js', 'MongoDB', 'Stripe'],
     category: 'Full Stack',
     githubUrl: 'https://github.com/username/ecommerce-platform',
@@ -28,7 +28,7 @@ export const projects: Project[] = [
     id: '2',
     title: 'Real Estate Mobile App',
     description: 'A cross-platform mobile application for real estate listings, featuring property search, filtering, and appointment scheduling.',
-    imageUrl: '/images/projects/realestate.jpg',
+    imageUrl: '/images/projects/realestate.svg',
     tags: ['React Native', 'Firebase', 'Google Maps API', 'Expo'],
     category: 'Mobile App',
     githubUrl: 'https://github.com/username/real-estate-app',
@@ -41,7 +41,7 @@ export const projects: Project[] = [
     id: '3',
     title: 'Corporate WordPress Website',
     description: 'A custom WordPress website for a corporate client with custom theme development, plugins integration, and performance optimization.',
-    imageUrl: '/images/projects/wordpress.jpg',
+    imageUrl: '/images/projects/wordpress.svg',
     tags: ['WordPress', 'PHP', 'JavaScript', 'SCSS'],
     category: 'WordPress',
     demoUrl: 'https://corporate-website-demo.com',
@@ -52,7 +52,7 @@ export const projects: Project[] = [
     id: '4',
     title: 'Task Management Dashboard',
     description: 'A comprehensive task management system with team collaboration, file sharing, and project analytics.',
-    imageUrl: '/images/projects/taskmanager.jpg',
+    imageUrl: '/images/projects/taskmanager.svg',
     tags: ['React', 'Firebase', 'Material UI', 'Chart.js'],
     category: 'Full Stack',
     githubUrl: 'https://github.com/username/task-manager',
@@ -64,7 +64,7 @@ export const projects: Project[] = [
     id: '5',
     title: 'Fitness Tracking App',
     description: 'Mobile application for tracking workouts, nutrition, and fitness goals with personalized recommendations.',
-    imageUrl: '/images/projects/fitnessapp.jpg',
+    imageUrl: '/images/projects/fitnessapp.svg',
     tags: ['Flutter', 'Firebase', 'Dart', 'Provider'],
     category: 'Mobile App',
     githubUrl: 'https://github.com/username/fitness-app',
@@ -76,7 +76,7 @@ export const projects: Project[] = [
     id: '6',
     title: 'WordPress Plugin for E-learning',
     description: 'Custom WordPress plugin for creating and managing online courses with payment integration and user management.',
-    imageUrl: '/images/projects/wordpressplugin.jpg',
+    imageUrl: '/images/projects/wordpressplugin.svg',
     tags: ['WordPress', 'PHP', 'JavaScript', 'WooCommerce'],
     category: 'WordPress',
     githubUrl: 'https://github.com/username/wp-elearning-plugin',
@@ -172,8 +172,41 @@ export const blogPosts: BlogPost[] = [
     id: '1',
     title: 'The Future of Web Development in 2025',
     excerpt: 'Exploring upcoming trends in web development including AI integration, immersive experiences, and performance optimization.',
-    content: '# The Future of Web Development in 2025\n\nWeb development continues to evolve at a rapid pace, with new technologies and methodologies emerging constantly. In this article, we\'ll explore some key trends that are shaping the future of web development in 2025.\n\n## AI Integration\n\nArtificial intelligence is becoming increasingly integrated into web applications, enabling more personalized user experiences, intelligent content generation, and automated testing.\n\n## Immersive Experiences\n\nWith advancements in WebGL, Three.js, and WebXR, websites are becoming more immersive, offering 3D experiences, virtual reality, and augmented reality directly in the browser.\n\n## Performance Optimization\n\nAs web applications become more complex, performance optimization remains critical. Techniques like code-splitting, lazy loading, and modern build tools are essential for creating fast-loading websites.\n\n## Conclusion\n\nStaying updated with these trends will be crucial for web developers looking to create cutting-edge applications in 2025 and beyond.',
-    coverImage: '/images/blog/webdev2025.jpg',
+    content: `# The Future of Web Development in 2025
+
+Web development continues to evolve at a rapid pace, with new technologies and methodologies emerging constantly. In this article, we'll explore some key trends that are shaping the future of web development in 2025.
+
+## AI Integration
+
+Artificial intelligence is becoming increasingly integrated into web applications, enabling:
+- Personalized user experiences
+- Intelligent content generation
+- Automated testing and optimization
+- Smart chatbots and virtual assistants
+- Predictive analytics
+
+## Immersive Experiences
+
+With advancements in web technologies, we're seeing more immersive experiences:
+- WebGL and Three.js for 3D graphics
+- WebXR for virtual and augmented reality
+- Web-based game development
+- Interactive data visualizations
+- Gesture-based interactions
+
+## Performance Optimization
+
+As applications become more complex, performance remains crucial:
+- Code splitting and lazy loading
+- Edge computing and CDN optimization
+- Web Assembly for high-performance code
+- Progressive Web Apps (PWAs)
+- Automated performance monitoring
+
+## Conclusion
+
+The future of web development is exciting, with new possibilities emerging every day. Staying updated with these trends will be crucial for developers in 2025 and beyond.`,
+    coverImage: '/images/blog/webdev2025.svg',
     date: '2024-12-01',
     author: 'Jane Developer',
     tags: ['Web Development', 'Trends', 'AI', 'Performance'],
@@ -183,8 +216,41 @@ export const blogPosts: BlogPost[] = [
     id: '2',
     title: 'Building Cross-Platform Mobile Apps: A Comprehensive Guide',
     excerpt: 'Learn about the best approaches for building mobile applications that work seamlessly across iOS and Android platforms.',
-    content: '# Building Cross-Platform Mobile Apps: A Comprehensive Guide\n\nDeveloping mobile applications that work across multiple platforms can significantly reduce development time and maintenance costs. In this guide, we\'ll explore different approaches to cross-platform mobile app development.\n\n## React Native\n\nReact Native allows developers to build mobile apps using JavaScript and React. It compiles to native app components, providing performance similar to native apps while maintaining a single codebase.\n\n## Flutter\n\nFlutter, developed by Google, uses the Dart programming language and provides its own widgets for building user interfaces. It compiles to native code and offers excellent performance and beautiful UI capabilities.\n\n## Comparison and Considerations\n\nWhen choosing a cross-platform framework, consider factors such as team expertise, performance requirements, UI complexity, and native feature access.\n\n## Conclusion\n\nCross-platform development has come a long way, and modern frameworks like React Native and Flutter offer compelling options for building high-quality mobile applications efficiently.',
-    coverImage: '/images/blog/crossplatform.jpg',
+    content: `# Building Cross-Platform Mobile Apps: A Comprehensive Guide
+
+Developing mobile applications that work across multiple platforms can significantly reduce development time and costs. Let's explore different approaches and best practices.
+
+## React Native Development
+
+React Native offers several advantages:
+- JavaScript/TypeScript development
+- Native performance
+- Large ecosystem of libraries
+- Hot reloading for faster development
+- Extensive community support
+
+## Flutter Development
+
+Flutter provides unique benefits:
+- Single codebase in Dart
+- Custom widget system
+- Excellent performance
+- Beautiful animations
+- Strong tooling support
+
+## Best Practices
+
+Consider these factors for success:
+- Platform-specific design guidelines
+- Performance optimization
+- State management strategies
+- Testing and quality assurance
+- Deployment and distribution
+
+## Conclusion
+
+Choose the right framework based on your project needs and team expertise.`,
+    coverImage: '/images/blog/crossplatform.svg',
     date: '2024-10-15',
     author: 'Jane Developer',
     tags: ['Mobile Development', 'React Native', 'Flutter', 'Cross-Platform'],
@@ -194,8 +260,50 @@ export const blogPosts: BlogPost[] = [
     id: '3',
     title: 'WordPress Performance Optimization Techniques',
     excerpt: 'Discover practical tips and strategies to improve the performance and loading speed of your WordPress websites.',
-    content: '# WordPress Performance Optimization Techniques\n\nA fast-loading WordPress website is crucial for user experience, SEO, and conversion rates. In this article, we\'ll cover essential techniques for optimizing WordPress performance.\n\n## Caching Solutions\n\nImplementing caching through plugins like WP Rocket, W3 Total Cache, or LiteSpeed Cache can dramatically improve loading times by serving static versions of your pages.\n\n## Database Optimization\n\nRegularly cleaning up your database by removing post revisions, spam comments, and optimizing tables can significantly improve query performance.\n\n## Image Optimization\n\nOptimizing images through compression, lazy loading, and appropriate sizing is essential for reducing page weight and improving load times.\n\n## Hosting Considerations\n\nChoosing the right hosting provider with optimized WordPress configurations, PHP 8.x support, and SSD storage can make a substantial difference in site performance.\n\n## Conclusion\n\nImplementing these optimization techniques can transform a slow WordPress site into a high-performing one, improving both user experience and search engine rankings.',
-    coverImage: '/images/blog/wordpress-performance.jpg',
+    content: `# WordPress Performance Optimization Techniques
+
+A fast-loading WordPress website is crucial for user experience and SEO. Here's how to optimize your WordPress site for maximum performance.
+
+## Caching Implementation
+
+Effective caching strategies:
+- Page caching
+- Object caching
+- Browser caching
+- CDN integration
+- Database query caching
+
+## Database Optimization
+
+Keep your database clean and efficient:
+- Regular cleanup of post revisions
+- Optimize database tables
+- Remove spam comments
+- Clean up unused meta data
+- Use efficient queries
+
+## Asset Optimization
+
+Optimize your site's assets:
+- Image compression
+- CSS/JS minification
+- Lazy loading
+- Font optimization
+- Responsive images
+
+## Hosting Considerations
+
+Choose the right hosting solution:
+- Managed WordPress hosting
+- SSD storage
+- PHP 8.x support
+- Server-side caching
+- Regular backups
+
+## Conclusion
+
+Implementing these optimization techniques will significantly improve your WordPress site's performance.`,
+    coverImage: '/images/blog/wordpress-performance.svg',
     date: '2024-09-05',
     author: 'Jane Developer',
     tags: ['WordPress', 'Performance', 'Optimization', 'Speed'],

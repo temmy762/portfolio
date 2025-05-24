@@ -1,3 +1,8 @@
+/* 
+ * This file uses Tailwind CSS directives.
+ * The @tailwind directives are processed by the Tailwind CSS preprocessor
+ * and may show as errors in some editors without proper extension support.
+ */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -47,29 +52,28 @@
     --input: 240 3.7% 15.9%;
     --ring: 142.4 71.8% 29.2%;
   }
-}
 
-@layer base {
   * {
-    @apply border-border;
+    border-color: hsl(var(--border));
   }
+
   body {
-    @apply bg-background text-foreground;
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
     font-feature-settings: "rlig" 1, "calt" 1;
   }
   
   /* Accessibility styles */
-  /* Hide focus outlines for mouse users, but show for keyboard users */
   body:not(.user-is-tabbing) * {
     outline: none !important;
   }
   
-  /* Focus styles for keyboard users */
   body.user-is-tabbing *:focus {
-    @apply outline-2 outline-offset-2 outline-green-500 !important;
+    outline-width: 2px;
+    outline-offset: 2px;
+    outline-color: hsl(var(--ring));
   }
   
-  /* Skip link styles */
   .sr-only {
     position: absolute !important;
     width: 1px !important;

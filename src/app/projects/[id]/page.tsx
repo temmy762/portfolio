@@ -8,6 +8,7 @@ import { projects } from "@/lib/data/portfolio-data";
 import { formatDate } from "@/lib/utils";
 import { generateMetadata as generateBaseMetadata } from "@/lib/metadata";
 import { generateProjectSchema } from "@/lib/schema/project-schema";
+import { getProjectImageUrl, handleImageError } from "@/lib/utils/image-utils";
 
 export async function generateMetadata({ params }: { params: { id: string } }): Promise<Metadata> {
   const project = projects.find(p => p.id === params.id);
