@@ -2,6 +2,9 @@
  * Utility functions for handling images in the portfolio
  */
 
+import { getBrowserCompatiblePlaceholder } from './browser-compat';
+import { imageAnalytics } from './image-analytics';
+
 /**
  * Generate a placeholder image URL using Unsplash's source API
  * 
@@ -49,6 +52,12 @@ export function getAvatarPlaceholder(
   bgColor = '#22c55e', 
   textColor = '#ffffff'
 ): string {
+  // Check for browser compatibility
+  const fallbackUrl = getBrowserCompatiblePlaceholder('avatar');
+  if (fallbackUrl) {
+    return fallbackUrl;
+  }
+
   // Get initials from name
   const initials = name
     .split(' ')
@@ -107,10 +116,18 @@ export function getProjectPlaceholder(
  */
 export function handleImageError(event: React.SyntheticEvent<HTMLImageElement>) {
   const img = event.currentTarget;
+  const originalSrc = img.src;
   const widthAttr = img.getAttribute('width');
   const heightAttr = img.getAttribute('height');
   const width = widthAttr ? parseInt(widthAttr, 10) : img.width || 800;
   const height = heightAttr ? parseInt(heightAttr, 10) : img.height || 600;
+  
+  // Track the error in analytics
+  imageAnalytics.trackFailure(
+    originalSrc, 
+    'Image load error', 
+    img.closest('[data-component]')?.getAttribute('data-component') || undefined
+  );
   
   // Check if this is a person's image (avatar)
   const isAvatar = img.classList.contains('rounded-full') || 
@@ -122,6 +139,9 @@ export function handleImageError(event: React.SyntheticEvent<HTMLImageElement>) 
     const nameParts = img.alt ? img.alt.split('of ') : [];
     const name = nameParts.length > 1 ? nameParts[1] : 'User';
     img.src = getAvatarPlaceholder(name);
+    
+    // Track the fallback usage
+    imageAnalytics.trackSuccess(img.src, 0, 'avatar', true);
   } else {
     // For other images, determine the type based on class or alt text
     let type: 'web' | 'mobile' | 'design' | 'backend' | 'other' = 'other';
@@ -139,6 +159,9 @@ export function handleImageError(event: React.SyntheticEvent<HTMLImageElement>) 
 
     // Use project placeholder
     img.src = getProjectPlaceholder(type);
+    
+    // Track the fallback usage
+    imageAnalytics.trackSuccess(img.src, 0, 'project', true);
   }
   
   // Add appropriate alt text if missing

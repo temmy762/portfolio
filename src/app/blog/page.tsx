@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button";
 import { blogPosts } from "@/lib/data/portfolio-data";
 import { formatDate } from "@/lib/utils";
 import { BlogPost } from "@/types";
+import { getBlogImageUrl, handleImageError } from "@/lib/utils/image-utils";
 
 // Get unique tags from blog posts
 const allTags = ["All", ...new Set(blogPosts.flatMap(post => post.tags))];
@@ -99,13 +100,13 @@ export default function BlogPage() {
                 className="bg-white dark:bg-gray-800 rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300"
               >
                 <Link href={`/blog/${post.slug}`}>
-                  <div className="relative h-56 overflow-hidden">
-                    <Image
-                      src={post.coverImage || "/images/placeholder-blog.jpg"}
+                  <div className="relative h-56 overflow-hidden">                    <Image
+                      src={getBlogImageUrl(post.coverImage)}
                       alt={post.title}
                       fill
                       className="object-cover transition-transform duration-500 hover:scale-105"
                       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                      onError={(e) => handleImageError(e)}
                     />
                   </div>
                 </Link>

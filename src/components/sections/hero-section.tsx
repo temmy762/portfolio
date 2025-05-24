@@ -4,6 +4,8 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { FiArrowDown, FiGithub, FiLinkedin } from "react-icons/fi";
 import { SiUpwork, SiFiverr } from "react-icons/si";
+import Image from "next/image";
+import { getProjectPlaceholder, handleImageError } from "@/lib/utils/image-utils";
 
 export function HeroSection() {
   return (
@@ -135,21 +137,21 @@ export function HeroSection() {
                 <SiUpwork size={20} />
               </a>
             </motion.div>
-          </div>
-
-          {/* Hero Video/Image */}
+          </div>          {/* Hero Video/Image */}
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5, delay: 0.2 }}
             className="relative aspect-video bg-gray-200 dark:bg-gray-700 rounded-lg shadow-xl overflow-hidden"
-          >
-            {/* This will be replaced with actual video embed */}
-            <div className="absolute inset-0 flex items-center justify-center">
-              <span className="text-gray-500 dark:text-gray-400">
-                Hero Video Placeholder
-              </span>
-            </div>
+          >            <Image
+              src={getProjectPlaceholder('web')}
+              alt="Portfolio showcase"
+              fill
+              priority
+              className="object-cover"
+              sizes="(max-width: 768px) 100vw, 50vw"
+              onError={(e) => handleImageError(e)}
+            />
           </motion.div>
         </div>
 

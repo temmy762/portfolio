@@ -7,6 +7,8 @@ import { FiFileText, FiCode, FiUsers, FiAward } from "react-icons/fi";
 import { Button } from "@/components/ui/button";
 import { SectionTitle } from "@/components/ui/section-title";
 import { aboutMe } from "@/lib/data/portfolio-data";
+import Image from "next/image";
+import { getAvatarPlaceholder, handleImageError } from "@/lib/utils/image-utils";
 
 export function AboutSection() {
   const { ref: statsRef, inView: statsInView } = useInView({
@@ -23,20 +25,33 @@ export function AboutSection() {
         />
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mt-12">
-          {/* Image Column */}
-          <motion.div
+          {/* Image Column */}          <motion.div
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
             className="relative h-[500px] rounded-lg overflow-hidden"
           >
-            {/* Will be replaced with actual profile image */}
-            <div className="absolute inset-0 bg-gradient-to-br from-green-100 to-green-400 dark:from-green-900 dark:to-green-700">
-              <div className="absolute inset-0 flex items-center justify-center text-white text-lg font-medium">
-                Profile Image Placeholder
+            {aboutMe.profileImage ? (
+              <Image
+                src={aboutMe.profileImage}
+                alt={`${aboutMe.name} profile picture`}
+                fill
+                className="object-cover"
+                sizes="(max-width: 768px) 100vw, 50vw"
+                onError={(e) => handleImageError(e)}
+              />
+            ) : (
+              <div className="absolute inset-0 bg-gradient-to-br from-green-100 to-green-400 dark:from-green-900 dark:to-green-700 flex items-center justify-center">
+                <Image
+                  src={getAvatarPlaceholder(aboutMe.name, '#22c55e', '#ffffff')}
+                  alt={`${aboutMe.name} profile picture`}
+                  width={200}
+                  height={200}
+                  className="rounded-full"
+                />
               </div>
-            </div>
+            )}
           </motion.div>
 
           {/* Content Column */}

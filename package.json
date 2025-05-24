@@ -2,15 +2,17 @@
   "name": "portfolio",
   "version": "0.1.0",
   "private": true,
-  "type": "module",
-  "scripts": {
+  "type": "module",  "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build && npm run sitemap",
     "start": "next start",
     "lint": "next lint && npx stylelint --fix \"src/**/*.css\"",
     "export": "next build && npm run sitemap",
     "analyze": "ANALYZE=true next build",
-    "sitemap": "node ./scripts/generate-sitemap.mjs"
+    "sitemap": "node ./scripts/generate-sitemap.mjs",
+    "hostinger:build": "next build && node ./scripts/generate-hostinger-sitemap.mjs",
+    "hostinger:prepare": "npm run hostinger:build && npm run hostinger:check",
+    "hostinger:check": "node ./scripts/check-hostinger-compatibility.mjs"
   },
   "dependencies": {
     "@emailjs/browser": "^4.4.1",

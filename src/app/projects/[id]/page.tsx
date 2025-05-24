@@ -69,16 +69,18 @@ export default function ProjectPage({ params }: { params: { id: string } }) {
             <div className="flex items-center text-gray-500 dark:text-gray-400 mb-6">
               <FiCalendar className="mr-2" />
               <span>{formatDate(project.date)}</span>
-            </div>
-
-            <div className="mb-8 relative h-[400px] md:h-[500px] rounded-lg overflow-hidden shadow-lg">
+            </div>            <div className="mb-8 relative h-[400px] md:h-[500px] rounded-lg overflow-hidden shadow-lg">
               <Image
-                src={project.imageUrl || "/images/placeholder-project.jpg"}
+                src={getProjectImageUrl(project.imageUrl, (project.category?.toLowerCase() === 'web' ? 'web' : 
+                                     project.category?.toLowerCase() === 'mobile' ? 'mobile' : 
+                                     project.category?.toLowerCase() === 'design' ? 'design' : 
+                                     project.category?.toLowerCase() === 'backend' ? 'backend' : 'other'))}
                 alt={project.title}
                 fill
                 className="object-cover"
                 priority
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 66vw, 50vw"
+                onError={(e) => handleImageError(e)}
               />
             </div>
 
@@ -191,14 +193,16 @@ export default function ProjectPage({ params }: { params: { id: string } }) {
                   key={relatedProject.id}
                   className="bg-white dark:bg-gray-800 rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300"
                 >
-                  <Link href={`/projects/${relatedProject.id}`}>
-                    <div className="relative h-48 overflow-hidden">
-                      <Image
-                        src={relatedProject.imageUrl || "/images/placeholder-project.jpg"}
+                  <Link href={`/projects/${relatedProject.id}`}>                    <div className="relative h-48 overflow-hidden">                      <Image
+                        src={getProjectImageUrl(relatedProject.imageUrl, (relatedProject.category?.toLowerCase() === 'web' ? 'web' : 
+                                             relatedProject.category?.toLowerCase() === 'mobile' ? 'mobile' : 
+                                             relatedProject.category?.toLowerCase() === 'design' ? 'design' : 
+                                             relatedProject.category?.toLowerCase() === 'backend' ? 'backend' : 'other'))}
                         alt={relatedProject.title}
                         fill
                         className="object-cover transition-transform duration-500 hover:scale-105"
                         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                        onError={(e) => handleImageError(e)}
                       />
                     </div>
                   </Link>

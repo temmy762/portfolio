@@ -34,11 +34,11 @@ export function BlogSection() {
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
               className="bg-white dark:bg-gray-800 rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300"
-            >              <div className="relative h-48 overflow-hidden">
-                <Image
+            >              <div className="relative h-48 overflow-hidden">                <Image
                   src={getBlogImageUrl(post.coverImage)}
                   alt={post.title}
                   fill
+                  loading="lazy"
                   className="object-cover transition-transform duration-500 hover:scale-105"
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   onError={(e) => handleImageError(e)}

@@ -7,6 +7,7 @@ import { FiArrowLeft, FiCalendar, FiUser, FiShare2 } from "react-icons/fi";
 import { Button } from "@/components/ui/button";
 import { blogPosts } from "@/lib/data/portfolio-data";
 import { formatDate } from "@/lib/utils";
+import { getBlogImageUrl, handleImageError, getAvatarPlaceholder } from "@/lib/utils/image-utils";
 
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
   const post = blogPosts.find(p => p.slug === params.slug);
@@ -51,15 +52,15 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
           {/* Main Content */}
-          <div className="lg:col-span-2">
-            <div className="mb-8 relative h-[400px] md:h-[500px] rounded-lg overflow-hidden shadow-lg">
+          <div className="lg:col-span-2">            <div className="mb-8 relative h-[400px] md:h-[500px] rounded-lg overflow-hidden shadow-lg">
               <Image
-                src={post.coverImage || "/images/placeholder-blog.jpg"}
+                src={getBlogImageUrl(post.coverImage)}
                 alt={post.title}
                 fill
                 className="object-cover"
                 priority
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 66vw, 50vw"
+                onError={(e) => handleImageError(e)}
               />
             </div>
 
@@ -126,13 +127,17 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
               <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-6">
                 About the Author
               </h3>
-              
-              <div className="flex items-center mb-4">
+                <div className="flex items-center mb-4">
                 <div className="w-16 h-16 rounded-full overflow-hidden mr-4 bg-green-100 dark:bg-green-900/30">
-                  {/* Avatar placeholder - replace with actual author image */}
-                  <div className="w-full h-full flex items-center justify-center text-green-600 dark:text-green-500 font-medium">
-                    {post.author[0]}
-                  </div>
+                  {/* Use avatar placeholder */}
+                  <Image
+                    src={getAvatarPlaceholder(post.author)}
+                    alt={`${post.author}'s profile picture`}
+                    width={64}
+                    height={64}
+                    className="object-cover w-full h-full"
+                    onError={(e) => handleImageError(e)}
+                  />
                 </div>
                 <div>
                   <h4 className="font-medium text-gray-900 dark:text-white">
@@ -170,14 +175,14 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
                       href={`/blog/${relatedPost.slug}`}
                       className="block"
                     >
-                      <div className="flex items-start space-x-3">
-                        <div className="relative w-16 h-16 rounded overflow-hidden flex-shrink-0">
+                      <div className="flex items-start space-x-3">                        <div className="relative w-16 h-16 rounded overflow-hidden flex-shrink-0">
                           <Image
-                            src={relatedPost.coverImage || "/images/placeholder-blog.jpg"}
+                            src={getBlogImageUrl(relatedPost.coverImage)}
                             alt={relatedPost.title}
                             fill
                             className="object-cover"
                             sizes="64px"
+                            onError={(e) => handleImageError(e)}
                           />
                         </div>
                         <div>
