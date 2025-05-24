@@ -12,7 +12,8 @@
     "sitemap": "node ./scripts/generate-sitemap.mjs",
     "hostinger:build": "next build && node ./scripts/generate-hostinger-sitemap.mjs && node ./scripts/copy-htaccess.mjs",
     "hostinger:prepare": "npm run hostinger:build && npm run hostinger:check",
-    "hostinger:check": "node ./scripts/check-hostinger-compatibility.mjs"
+    "hostinger:check": "node ./scripts/check-hostinger-compatibility.mjs",
+    "hostinger:verify": "node ./scripts/verify-hostinger-files.mjs"
   },
   "dependencies": {
     "@emailjs/browser": "^4.4.1",
