@@ -1,0 +1,20 @@
+# Netlify redirects file
+# This replaces the .htaccess configuration needed for Hostinger
+
+# Handle SPA fallbacks - redirect any route not found to index.html
+/*    /index.html   200
+
+# Redirect HTTP to HTTPS
+http://:hostName/*  https://:hostName/:splat  301!
+
+# Enforce trailing slash on URLs for consistency
+/about              /about/            301
+/projects           /projects/         301
+/blog               /blog/             301
+/contact            /contact/          301
+/services           /services/         301
+
+# Prevent access to sensitive paths
+/.env*              /404.html          404
+/.git*              /404.html          404
+/node_modules/*     /404.html          404

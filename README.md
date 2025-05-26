@@ -15,7 +15,7 @@ A comprehensive, modern portfolio website built with Next.js and Tailwind CSS, d
 - **GitHub API Integration**: Showcase your repositories
 - **SEO Optimization**: Meta tags, structured data, and sitemap
 - **Accessibility**: WCAG compliance features built-in
-- **Static Export**: Compatible with Hostinger and other static hosts
+- **Static Export**: Optimized for Netlify deployment with CI/CD
 
 ## Getting Started
 

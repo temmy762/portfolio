@@ -1,11 +1,12 @@
-# Deploying Your Portfolio to Netlify
+# Netlify Deployment Guide
 
-This guide walks you through deploying your Next.js portfolio to Netlify, which offers several advantages:
-- Automatic deployments from Git
-- SSL certificates included
-- CDN distribution
-- Form handling
-- Continuous deployment
+This guide provides step-by-step instructions for deploying your Next.js portfolio to Netlify, taking advantage of Netlify's features:
+
+✅ Automatic deployments from Git  
+✅ SSL certificates included  
+✅ Global CDN distribution  
+✅ Form handling built-in  
+✅ Continuous deployment pipeline
 
 ## Prerequisites
 
