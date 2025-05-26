@@ -10,10 +10,10 @@
     "export": "next build && npm run sitemap",
     "analyze": "ANALYZE=true next build",
     "sitemap": "node ./scripts/generate-sitemap.mjs",
-    "hostinger:build": "next build && node ./scripts/generate-hostinger-sitemap.mjs && node ./scripts/copy-htaccess.mjs",
-    "hostinger:prepare": "npm run hostinger:build && npm run hostinger:check",
-    "hostinger:check": "node ./scripts/check-hostinger-compatibility.mjs",
-    "hostinger:verify": "node ./scripts/verify-hostinger-files.mjs"
+    "netlify:dev": "netlify dev",
+    "netlify:build": "next build && node ./scripts/generate-netlify-sitemap.mjs",
+    "netlify:deploy": "netlify deploy --prod",
+    "netlify:ci": "netlify deploy --prod --build"
   },
   "dependencies": {
     "@emailjs/browser": "^4.4.1",
