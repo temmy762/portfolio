@@ -10,8 +10,9 @@ import { generateMetadata as generateBaseMetadata } from "@/lib/metadata";
 import { generateProjectSchema } from "@/lib/schema/project-schema";
 import { getProjectImageUrl, handleImageError } from "@/lib/utils/image-utils";
 
-export async function generateMetadata({ params }: { params: { id: string } }): Promise<Metadata> {
-  const project = projects.find(p => p.id === params.id);
+export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
+  const { id } = await params;
+  const project = projects.find(p => p.id === id);
   
   if (!project) {
     return generateBaseMetadata({
@@ -21,26 +22,25 @@ export async function generateMetadata({ params }: { params: { id: string } }): 
   }
 
   const keywords = [...project.tags, ...project.techStack, project.category].join(', ');
-  
-  return generateBaseMetadata({
+    return generateBaseMetadata({
     title: project.title,
     description: project.description,
     keywords,
     ogImage: project.imageUrl,
-    canonical: `/projects/${params.id}`,
+    canonical: `/projects/${id}`,
   });
 }
 
-export default function ProjectPage({ params }: { params: { id: string } }) {
-  const project = projects.find(p => p.id === params.id);
+export default async function ProjectPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
+  const project = projects.find(p => p.id === id);
   
   if (!project) {
     notFound();
   }
-
   // Get related projects (same category, excluding current project)
   const relatedProjects = projects
-    .filter(p => p.category === project.category && p.id !== project.id)
+    .filter(p => p.category === project.category && p.id !== id)
     .slice(0, 3);
 
   return (

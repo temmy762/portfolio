@@ -9,6 +9,70 @@ import { GithubRepo } from "@/types";
 import { GitHubService } from "@/lib/services/github-service";
 import { config } from "@/lib/config";
 
+// Mock data for GitHub repositories
+const mockRepos: GithubRepo[] = [
+  {
+    id: "1",
+    name: "react-portfolio",
+    description: "Modern portfolio website built with React and Next.js",
+    html_url: "https://github.com/username/react-portfolio",
+    homepage: "https://portfolio-demo.com",
+    stargazers_count: 48,
+    language: "TypeScript",
+    fork: false
+  },
+  {
+    id: "2",
+    name: "e-commerce-platform",
+    description: "Full-featured e-commerce platform with React and Node.js",
+    html_url: "https://github.com/username/e-commerce-platform",
+    homepage: "https://ecommerce-demo.com",
+    stargazers_count: 124,
+    language: "JavaScript",
+    fork: false
+  },
+  {
+    id: "3",
+    name: "wordpress-starter",
+    description: "WordPress starter template with custom theme development",
+    html_url: "https://github.com/username/wordpress-starter",
+    homepage: "",
+    stargazers_count: 37,
+    language: "PHP",
+    fork: false
+  },
+  {
+    id: "4",
+    name: "react-native-fitness",
+    description: "Cross-platform fitness tracking app built with React Native",
+    html_url: "https://github.com/username/react-native-fitness",
+    homepage: "",
+    stargazers_count: 92,
+    language: "JavaScript",
+    fork: false
+  },
+  {
+    id: "5",
+    name: "task-manager-api",
+    description: "RESTful API for task management built with Node.js and Express",
+    html_url: "https://github.com/username/task-manager-api",
+    homepage: "",
+    stargazers_count: 63,
+    language: "JavaScript",
+    fork: false
+  },
+  {
+    id: "6",
+    name: "ui-component-library",
+    description: "Reusable UI component library built with React and Styled Components",
+    html_url: "https://github.com/username/ui-component-library",
+    homepage: "https://ui-lib-demo.com",
+    stargazers_count: 156,
+    language: "TypeScript",
+    fork: false
+  }
+];
+
 export function GitHubSection() {
   const [repos, setRepos] = useState<GithubRepo[]>([]);
   const [isLoading, setIsLoading] = useState(true);

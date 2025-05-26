@@ -1,5 +1,6 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { Suspense } from "react";
 
 import Header from "@/components/layout/header";
 import Footer from "@/components/layout/footer";
@@ -63,7 +64,11 @@ export default function RootLayout({
         </ThemeProvider>
         
         {/* Add Google Analytics */}
-        {process.env.NODE_ENV === 'production' && <Analytics />}
+        {process.env.NODE_ENV === 'production' && (
+          <Suspense fallback={null}>
+            <Analytics />
+          </Suspense>
+        )}
       </body>
     </html>
   );

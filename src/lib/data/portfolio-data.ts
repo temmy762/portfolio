@@ -457,6 +457,7 @@ export const aboutMe = {
   email: 'alex@example.com',
   phone: '+1 (123) 456-7890',
   availability: 'Available for freelance projects',
+  profileImage: '/images/profile/alex-johnson.jpg',
   intro: "Hello! I'm Alex, a full-stack developer who loves creating elegant solutions to complex problems. With expertise in React, Node.js, and mobile development, I build applications that are not only functional but also intuitive and enjoyable to use.",
   longBio: "I started my journey in web development over 5 years ago, driven by a curiosity about how things work on the internet. Since then, I've had the opportunity to work with startups, agencies, and enterprise clients across various industries including fintech, healthcare, and e-commerce.\n\nMy technical expertise includes frontend development with React and Next.js, backend development with Node.js and Express, mobile app development with React Native, and WordPress customization for content-driven websites.\n\nWhat sets me apart is my commitment to understanding the business goals behind each project. I believe that great technology should solve real problems and deliver measurable value. Whether it's improving user engagement, streamlining operations, or driving sales, I focus on outcomes rather than just outputs.\n\nWhen I'm not coding, you can find me exploring new hiking trails, experimenting with photography, or contributing to open-source projects."
 };

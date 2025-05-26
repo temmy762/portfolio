@@ -7,7 +7,7 @@ import { useEffect } from 'react';
 // Add gtag to Window interface
 declare global {
   interface Window {
-    gtag: (command: string, id: string, config?: Record<string, unknown>) => void;
+    gtag: (command: string, action: string, params: Record<string, string | number | boolean>) => void;
     dataLayer: unknown[];
   }
 }
