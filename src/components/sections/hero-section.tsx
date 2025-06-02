@@ -4,16 +4,16 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { FiArrowDown, FiGithub, FiLinkedin } from "react-icons/fi";
 import { SiUpwork, SiFiverr } from "react-icons/si";
-import Image from "next/image";
-import { getProjectPlaceholder, handleImageError } from "@/lib/utils/image-utils";
+import { OptimizedImage } from "@/components/ui/optimized-image";
+import { getProjectPlaceholder } from "@/lib/utils/image-utils";
 
 export function HeroSection() {
   return (
     <section className="relative min-h-screen flex items-center justify-center pt-16 pb-24 overflow-hidden bg-gradient-to-b from-white to-gray-50 dark:from-gray-900 dark:to-gray-800">
-      {/* Animated background elements */}
+      {/* Optimized animated background elements */}
       <div className="absolute inset-0 overflow-hidden">
         <motion.div
-          className="absolute -top-32 -left-32 w-96 h-96 rounded-full bg-green-100 dark:bg-green-900/20 blur-3xl opacity-50"
+          className="absolute -top-32 -left-32 w-64 h-64 sm:w-96 sm:h-96 rounded-full bg-green-100 dark:bg-green-900/20 blur-3xl opacity-50"
           animate={{
             x: [0, 30, 0],
             y: [0, 40, 0],
@@ -25,7 +25,7 @@ export function HeroSection() {
           }}
         />
         <motion.div
-          className="absolute -right-32 bottom-0 w-96 h-96 rounded-full bg-green-100 dark:bg-green-900/20 blur-3xl opacity-50"
+          className="absolute -right-32 bottom-0 w-64 h-64 sm:w-96 sm:h-96 rounded-full bg-green-100 dark:bg-green-900/20 blur-3xl opacity-50"
           animate={{
             x: [0, -30, 0],
             y: [0, -40, 0],
@@ -39,17 +39,17 @@ export function HeroSection() {
       </div>
 
       <div className="container mx-auto px-4 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
           {/* Text Content */}
-          <div>
+          <div className="order-2 lg:order-1">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
-              className="flex items-center mb-6"
+              className="flex items-center mb-4 sm:mb-6"
             >
-              <div className="h-[1px] w-16 bg-green-500 mr-4"></div>
-              <span className="text-green-600 dark:text-green-500 font-medium">
+              <div className="h-[1px] w-12 sm:w-16 bg-green-500 mr-4"></div>
+              <span className="text-sm sm:text-base text-green-600 dark:text-green-500 font-medium">
                 Welcome to my portfolio
               </span>
             </motion.div>
@@ -58,7 +58,7 @@ export function HeroSection() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.1 }}
-              className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white leading-tight mb-6"
+              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white leading-tight mb-4 sm:mb-6"
             >
               I&apos;m Alex Johnson
               <span className="block">
@@ -73,7 +73,7 @@ export function HeroSection() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
-              className="text-lg text-gray-600 dark:text-gray-300 mb-8 max-w-lg"
+              className="text-base sm:text-lg text-gray-600 dark:text-gray-300 mb-6 sm:mb-8 max-w-lg"
             >
               Specializing in building exceptional digital experiences with
               modern technologies. Focusing on responsive designs, performance,
@@ -84,12 +84,12 @@ export function HeroSection() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.3 }}
-              className="flex flex-wrap gap-4"
+              className="flex flex-col sm:flex-row gap-4"
             >
-              <Button href="/contact" size="lg">
+              <Button href="/contact" size="lg" className="w-full sm:w-auto">
                 Hire Me
               </Button>
-              <Button href="/projects" variant="outline" size="lg">
+              <Button href="/projects" variant="outline" size="lg" className="w-full sm:w-auto">
                 View My Work
               </Button>
             </motion.div>
@@ -98,7 +98,7 @@ export function HeroSection() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.4 }}
-              className="flex items-center space-x-4 mt-8"
+              className="flex items-center justify-center sm:justify-start space-x-4 mt-6 sm:mt-8"
             >
               <a
                 href="https://github.com/username"
