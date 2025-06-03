@@ -9,6 +9,7 @@ const nextConfig: NextConfig = {
   
   // Performance optimizations
   experimental: {
+    // Re-enabling optimizeCss with critters for critical CSS inlining
     optimizeCss: true,
     scrollRestoration: true,
   },

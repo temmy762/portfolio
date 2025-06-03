@@ -52,32 +52,29 @@ export function HeroSection() {
               <span className="text-sm sm:text-base text-green-600 dark:text-green-500 font-medium">
                 Welcome to my portfolio
               </span>
-            </motion.div>
-
-            <motion.h1
+            </motion.div>            <motion.h1
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.1 }}
               className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white leading-tight mb-4 sm:mb-6"
             >
-              I&apos;m Alex Johnson
+              I&apos;m Daniel Bankole Oriyomi
               <span className="block">
                 <span className="text-green-600 dark:text-green-500">
-                  Full Stack
+                  WordPress Expert
                 </span>{" "}
-                Developer
+                & Full Stack Developer
               </span>
-            </motion.h1>
-
-            <motion.p
+            </motion.h1>            <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
               className="text-base sm:text-lg text-gray-600 dark:text-gray-300 mb-6 sm:mb-8 max-w-lg"
             >
-              Specializing in building exceptional digital experiences with
-              modern technologies. Focusing on responsive designs, performance,
-              and seamless user experiences.
+              Passionate WordPress expert and full-stack developer who transforms 
+              complex ideas into powerful digital solutions. With years of experience 
+              and 100+ successful projects worldwide, I bring technical expertise and 
+              creative problem-solving to every challenge.
             </motion.p>
 
             <motion.div
@@ -143,14 +140,14 @@ export function HeroSection() {
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5, delay: 0.2 }}
             className="relative aspect-video bg-gray-200 dark:bg-gray-700 rounded-lg shadow-xl overflow-hidden"
-          >            <Image
+          >            <OptimizedImage
               src={getProjectPlaceholder('web')}
               alt="Portfolio showcase"
               fill
               priority
               className="object-cover"
               sizes="(max-width: 768px) 100vw, 50vw"
-              onError={(e) => handleImageError(e)}
+              component="hero"
             />
           </motion.div>
         </div>

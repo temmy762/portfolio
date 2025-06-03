@@ -1,12 +1,12 @@
 "use client";
 
-import Image from "next/image";
+import { OptimizedImage } from "@/components/ui/optimized-image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { FiExternalLink, FiGithub } from "react-icons/fi";
 import { Project } from "@/types";
 import { Button } from "@/components/ui/button";
-import { handleImageError, getProjectPlaceholder, isValidImageUrl } from "@/lib/utils/image-utils";
+import { getProjectPlaceholder, isValidImageUrl } from "@/lib/utils/image-utils";
 
 interface ProjectCardProps {
   project: Project;
@@ -21,9 +21,8 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
       viewport={{ once: true }}
       transition={{ duration: 0.5, delay: index * 0.1 }}
       className="group bg-white dark:bg-gray-800 rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300"
-    >
-      <div className="relative h-56 overflow-hidden">
-        <Image
+    >      <div className="relative h-56 overflow-hidden">
+        <OptimizedImage
           src={
             isValidImageUrl(project.imageUrl) 
               ? project.imageUrl 
@@ -33,8 +32,8 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
           fill
           className="object-cover transition-transform duration-500 group-hover:scale-105"
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-          onError={(e) => handleImageError(e)}
           priority={index < 3} // Prioritize loading the first 3 projects
+          component="project-card"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
         <div className="absolute bottom-0 left-0 right-0 p-4 text-white transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">

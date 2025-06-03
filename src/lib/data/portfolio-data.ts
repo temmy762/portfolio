@@ -90,44 +90,44 @@ export const projects: Project[] = [
 export const services: Service[] = [
   {
     id: '1',
-    title: 'Full Stack Development',
-    description: 'End-to-end web application development with modern technologies and best practices.',
-    icon: 'code',
+    title: 'Custom WordPress Solutions',
+    description: 'Bespoke WordPress development that goes far beyond standard templates.',
+    icon: 'wordpress',
     features: [
-      'Custom web application development',
-      'Frontend and backend integration',
-      'Database design and optimization',
-      'API development and integration',
-      'Performance optimization',
-      'Deployment and maintenance'
+      'Custom Theme Development - Unique, responsive designs tailored to brand identity',
+      'Advanced Plugin Development - Custom functionality and third-party integrations',
+      'WordPress Optimization - Performance tuning, security hardening, and SEO optimization',
+      'E-commerce Solutions - WooCommerce stores optimized for conversions',
+      'Multisite Development - Complex WordPress network solutions',
+      'Migration & Maintenance - Seamless transitions and ongoing support'
     ]
   },
   {
     id: '2',
-    title: 'Mobile App Development',
-    description: 'Cross-platform and native mobile applications for iOS and Android.',
-    icon: 'smartphone',
+    title: 'Full Stack Development',
+    description: 'Complete web application development using modern technologies and industry best practices.',
+    icon: 'code',
     features: [
-      'Native iOS and Android development',
-      'Cross-platform development (React Native, Flutter)',
-      'UI/UX design for mobile',
-      'App store submission and optimization',
-      'Push notifications and in-app purchases',
-      'App maintenance and updates'
+      'Frontend Technologies - React, Vue.js, JavaScript (ES6+), HTML5, CSS3',
+      'Backend Development - Node.js, PHP, Python, RESTful APIs',
+      'Database Management - MySQL, PostgreSQL, MongoDB',
+      'Cloud Integration - AWS, Google Cloud, deployment and hosting',
+      'Mobile Development - React Native, Progressive Web Apps',
+      'AI Integration - Machine learning and automation solutions'
     ]
   },
   {
     id: '3',
-    title: 'WordPress Development',
-    description: 'Custom WordPress solutions including themes, plugins, and e-commerce stores.',
-    icon: 'wordpress',
+    title: 'Technical Consulting',
+    description: 'Expert guidance and strategic consulting for your technical projects.',
+    icon: 'briefcase',
     features: [
-      'Custom theme development',
-      'Plugin development and customization',
-      'WooCommerce integration',
-      'Performance optimization',
-      'Security hardening',
-      'Maintenance and support'
+      'WordPress architecture and strategy consulting',
+      'Code review and optimization',
+      'Technical project management',
+      'Developer mentoring and training',
+      'Performance audits and recommendations',
+      'Technology stack selection and implementation'
     ]
   }
 ];
@@ -450,14 +450,14 @@ export const socialLinks: SocialLink[] = [
 
 // About me data
 export const aboutMe = {
-  name: 'Alex Johnson',
-  title: 'Full Stack Developer',
-  bio: 'I am a passionate Full Stack Developer with over 5 years of experience specializing in building scalable web applications, mobile apps, and WordPress solutions. My approach combines technical expertise with creative problem-solving to deliver exceptional digital experiences that meet business objectives.',
-  location: 'San Francisco, CA',
-  email: 'alex@example.com',
-  phone: '+1 (123) 456-7890',
-  availability: 'Available for freelance projects',
-  profileImage: '/images/profile/alex-johnson.jpg',
-  intro: "Hello! I'm Alex, a full-stack developer who loves creating elegant solutions to complex problems. With expertise in React, Node.js, and mobile development, I build applications that are not only functional but also intuitive and enjoyable to use.",
-  longBio: "I started my journey in web development over 5 years ago, driven by a curiosity about how things work on the internet. Since then, I've had the opportunity to work with startups, agencies, and enterprise clients across various industries including fintech, healthcare, and e-commerce.\n\nMy technical expertise includes frontend development with React and Next.js, backend development with Node.js and Express, mobile app development with React Native, and WordPress customization for content-driven websites.\n\nWhat sets me apart is my commitment to understanding the business goals behind each project. I believe that great technology should solve real problems and deliver measurable value. Whether it's improving user engagement, streamlining operations, or driving sales, I focus on outcomes rather than just outputs.\n\nWhen I'm not coding, you can find me exploring new hiking trails, experimenting with photography, or contributing to open-source projects."
+  name: 'Daniel Bankole Oriyomi',
+  title: 'WordPress Expert & Full Stack Developer',
+  bio: 'Passionate WordPress expert and full-stack developer who transforms complex ideas into powerful digital solutions. With years of experience and 100+ successful projects worldwide, I bring technical expertise and creative problem-solving to every challenge.',
+  location: 'Lagos, Nigeria',
+  email: 'info@solvatree.com',
+  phone: '+234 (XXX) XXX-XXXX',
+  availability: 'Open for freelance projects and collaborations',
+  profileImage: '/images/profile/daniel-bankole-oriyomi.jpg',
+  intro: "Hello! I'm Daniel, a dedicated WordPress expert and full-stack developer with a passion for creating exceptional digital experiences. My journey in web development has been driven by one core belief: technology should empower businesses to achieve their greatest potential.",
+  longBio: "Over the years, I've had the privilege of working with over 100+ clients across the globe, ranging from individual entrepreneurs to large-scale enterprises. Each project has taught me something new and reinforced my commitment to delivering solutions that not only meet requirements but exceed expectations.\n\nAs the founder of SolvaTree, I've built a company that reflects my values of innovation, quality, and client success. However, this portfolio represents my personal work and individual expertise in the field of web development and WordPress specialization.\n\nMy approach combines technical precision with creative vision, ensuring that every website, application, or solution I build is both functionally robust and visually compelling. With years of proven expertise and 100+ completed projects, I bring extensive experience across diverse industries and project requirements."
 };

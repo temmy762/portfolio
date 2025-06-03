@@ -11,8 +11,8 @@ import { FreelancePlatformsSection } from "@/components/sections/freelance-platf
 import { ContactSection } from "@/components/sections/contact-section";
 
 export const metadata: Metadata = {
-  title: 'Alex Johnson - Full Stack Developer Portfolio',
-  description: 'Professional portfolio of Alex Johnson, specializing in Full Stack Development, Mobile Apps, and WordPress solutions.',
+  title: 'Daniel Bankole Oriyomi - WordPress Expert & Full Stack Developer Portfolio',
+  description: 'Professional portfolio of Daniel Bankole Oriyomi, specializing in WordPress development, full-stack solutions, and technical consulting. 100+ successful projects worldwide.',
 };
 
 export default function Home() {

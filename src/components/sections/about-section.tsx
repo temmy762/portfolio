@@ -116,16 +116,15 @@ export function AboutSection() {
         <div
           ref={statsRef}
           className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-20"
-        >
-          {[
+        >          {[
             {
               icon: <FiCode />,
-              value: 85,
+              value: 100,
               label: "Projects Completed",
             },
             {
               icon: <FiUsers />,
-              value: 50,
+              value: 100,
               label: "Satisfied Clients",
             },
             {
@@ -135,7 +134,7 @@ export function AboutSection() {
             },
             {
               icon: <FiFileText />,
-              value: 20,
+              value: 25,
               label: "Blog Articles",
             },
           ].map((stat, index) => (

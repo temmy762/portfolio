@@ -6,6 +6,8 @@ import { FiArrowRight } from "react-icons/fi";
 import { SectionTitle } from "@/components/ui/section-title";
 import { ProjectCard } from "@/components/ui/project-card";
 import { Button } from "@/components/ui/button";
+import { LazyLoad } from "@/components/ui/lazy-load";
+import { ProjectCardSkeleton } from "@/components/ui/skeleton";
 import { projects } from "@/lib/data/portfolio-data";
 
 export function ProjectsShowcase() {
@@ -19,13 +21,19 @@ export function ProjectsShowcase() {
       <div className="container mx-auto px-4">
         <SectionTitle
           title="Featured Projects"
-          subtitle="Explore some of my recent work showcasing my expertise in web development, mobile apps, and WordPress solutions."
-          centered={true}
+          subtitle="Showcasing my latest work and technical expertise"
         />
-
+        
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
           {featuredProjects.map((project, index) => (
-            <ProjectCard key={project.id} project={project} index={index} />
+            <LazyLoad 
+              key={project.id} 
+              fallback={<ProjectCardSkeleton />}
+              threshold={0.1}
+              rootMargin="150px"
+            >
+              <ProjectCard project={project} index={index} />
+            </LazyLoad>
           ))}
         </div>
 

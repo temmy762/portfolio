@@ -6,8 +6,8 @@ import { aboutMe, experiences, education } from "@/lib/data/portfolio-data";
 import { formatDate } from "@/lib/utils";
 
 export const metadata: Metadata = {
-  title: 'About Me - Alex Johnson Portfolio',
-  description: 'Learn more about Alex Johnson, a Full Stack Developer with expertise in web and mobile development.',
+  title: 'About Me - Daniel Bankole Oriyomi Portfolio',
+  description: 'Learn more about Daniel Bankole Oriyomi, a WordPress Expert and Full Stack Developer with 100+ successful projects worldwide. Founder of SolvaTree.',
 };
 
 export default function AboutPage() {
