@@ -58,26 +58,19 @@ export const MOBILE_CONFIGS: Record<string, MobileTestConfig> = {
     device: 'mobile',
     network: 'slow-3g',
     viewport: { width: 375, height: 667 },
-    userAgent: 'Mozilla/5.0 (iPhone; CPU iPhone OS 14_0 like Mac OS X) AppleWebKit/605.1.15'
+    userAgent: 'Mozilla/5.0 (iPhone; CPU iPhone OS 14_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0 Mobile/15E148 Safari/604.1'
   },
   'mobile-fast': {
     device: 'mobile',
     network: '4g',
     viewport: { width: 375, height: 667 },
-    userAgent: 'Mozilla/5.0 (iPhone; CPU iPhone OS 14_0 like Mac OS X) AppleWebKit/605.1.15'
+    userAgent: 'Mozilla/5.0 (iPhone; CPU iPhone OS 14_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0 Mobile/15E148 Safari/604.1'
   },
   'tablet': {
     device: 'tablet',
     network: 'wifi',
     viewport: { width: 768, height: 1024 },
-  const ratings: Record<keyof PerformanceMetrics, 'good' | 'needs-improvement' | 'poor'> = {
-    fcp: 'poor',
-    lcp: 'poor', 
-    fid: 'poor',
-    cls: 'poor',
-    ttfb: 'poor',
-    tbt: 'poor'
-  };
+    userAgent: 'Mozilla/5.0 (iPad; CPU OS 14_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0 Mobile/15E148 Safari/604.1'
   }
 };
 
@@ -94,12 +87,6 @@ export const PERFORMANCE_THRESHOLDS = {
 };
 
 /**
- * Evaluate performance metrics against thresholds
- */
-export function evaluatePerformance(metrics: PerformanceMetrics): {
-  score: number;
-  ratings: Record<keyof PerformanceMetrics, 'good' | 'needs-improvement' | 'poor'>;
-/**
  * Get performance recommendations based on metrics
  */
 function getRecommendation(metric: keyof PerformanceMetrics, value: number): string {
@@ -113,37 +100,43 @@ function getRecommendation(metric: keyof PerformanceMetrics, value: number): str
   };
   
   return recommendations[metric];
-}     ratings[metric] = 'needs-improvement';
+}
+
+/**
+ * Evaluate performance metrics against thresholds
+ */
+export function evaluatePerformance(metrics: PerformanceMetrics): {
+  score: number;
+  ratings: Record<keyof PerformanceMetrics, 'good' | 'needs-improvement' | 'poor'>;
+  recommendations: string[];
+} {
+  const ratings = {} as Record<keyof PerformanceMetrics, 'good' | 'needs-improvement' | 'poor'>;
+  const recommendations: string[] = [];
+  let totalScore = 0;
+
+  Object.entries(metrics).forEach(([metric, value]) => {
+    const key = metric as keyof PerformanceMetrics;
+    const threshold = PERFORMANCE_THRESHOLDS[key];
+    
+    if (value <= threshold.good) {
+      ratings[key] = 'good';
+      totalScore += 100;
+    } else if (value <= threshold.needsImprovement) {
+      ratings[key] = 'needs-improvement';
       totalScore += 50;
-      recommendations.push(getRecommendation(metric, value));
+      recommendations.push(getRecommendation(key, value));
     } else {
-      ratings[metric] = 'poor';
+      ratings[key] = 'poor';
       totalScore += 0;
-      recommendations.push(getRecommendation(metric, value));
+      recommendations.push(getRecommendation(key, value));
     }
   });
 
   return {
     score: Math.round(totalScore / Object.keys(metrics).length),
     ratings,
-    recommendations: [...new Set(recommendations)] // Remove duplicates
+    recommendations: [...new Set(recommendations)]
   };
-}
-
-/**
- * Get performance recommendations based on metrics
- */
-function getRecommendation(metric: keyof PerformanceMetrics, value: number): string {
-  const recommendations: Record<keyof PerformanceMetrics, string> = {
-    fcp: 'Optimize critical CSS delivery and reduce render-blocking resources',
-    lcp: 'Optimize images, preload key resources, and improve server response times',
-    fid: 'Minimize JavaScript execution time and optimize third-party scripts',
-    cls: 'Set explicit dimensions for images and avoid inserting content above existing elements',
-    ttfb: 'Optimize server response time and consider CDN implementation',
-    tbt: 'Reduce JavaScript execution time and break up long tasks'
-  };
-  
-  return recommendations[metric];
 }
 
 /**
@@ -153,43 +146,38 @@ export function measureCoreWebVitals(): Promise<Partial<PerformanceMetrics>> {
   return new Promise((resolve) => {
     const metrics: Partial<PerformanceMetrics> = {};
     
-    // Measure FCP
-    const observer = new PerformanceObserver((list) => {
-      for (const entry of list.getEntries()) {
-        if (entry.name === 'first-contentful-paint') {
-          metrics.fcp = entry.startTime;
+    if ('PerformanceObserver' in window) {
+      const observer = new PerformanceObserver((list) => {
+        for (const entry of list.getEntries()) {
+          if (entry.name === 'first-contentful-paint') {
+            metrics.fcp = entry.startTime;
+          }
         }
-      }
-    });
-    observer.observe({ entryTypes: ['paint'] });
+      });
+      observer.observe({ entryTypes: ['paint'] });      const lcpObserver = new PerformanceObserver((list) => {
+        const entries = list.getEntries();
+        const lastEntry = entries[entries.length - 1] as PerformanceEntry;
+        metrics.lcp = lastEntry.startTime;
+      });
+      lcpObserver.observe({ entryTypes: ['largest-contentful-paint'] });
 
-    // Measure LCP
-    const lcpObserver = new PerformanceObserver((list) => {
-      const entries = list.getEntries();
-      const lastEntry = entries[entries.length - 1] as any;
-      metrics.lcp = lastEntry.startTime;
-    });
-    lcpObserver.observe({ entryTypes: ['largest-contentful-paint'] });
-
-    // Measure CLS
-    let clsValue = 0;
-    const clsObserver = new PerformanceObserver((list) => {
-      for (const entry of list.getEntries() as any[]) {
-        if (!entry.hadRecentInput) {
-          clsValue += entry.value;
+      let clsValue = 0;
+      const clsObserver = new PerformanceObserver((list) => {
+        for (const entry of list.getEntries() as any[]) {
+          if (!entry.hadRecentInput) {
+            clsValue += entry.value;
+          }
         }
-      }
-      metrics.cls = clsValue;
-    });
-    clsObserver.observe({ entryTypes: ['layout-shift'] });
+        metrics.cls = clsValue;
+      });
+      clsObserver.observe({ entryTypes: ['layout-shift'] });
+    }
 
-    // Measure TTFB
     const navigationEntry = performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming;
     if (navigationEntry) {
       metrics.ttfb = navigationEntry.responseStart - navigationEntry.requestStart;
     }
 
-    // Resolve after a reasonable timeout
     setTimeout(() => {
       resolve(metrics);
     }, 5000);
@@ -227,7 +215,7 @@ export function generateMobileTestReport(
 - **Total Blocking Time (TBT)**: ${metrics.tbt}ms (${evaluation.ratings.tbt})
 
 ## Recommendations
-${evaluation.recommendations.map(rec => `- ${rec}`).join('\n')}
+${evaluation.recommendations.map(rec => `- ${rec}`).join('\\n')}
 
 ## Optimization Status
 ✅ Critical CSS implementation
@@ -250,7 +238,6 @@ export class PerformanceMonitor {
   }
 
   private initializeObservers() {
-    // FCP Observer
     if ('PerformanceObserver' in window) {
       const fcpObserver = new PerformanceObserver((list) => {
         for (const entry of list.getEntries()) {
@@ -262,7 +249,6 @@ export class PerformanceMonitor {
       fcpObserver.observe({ entryTypes: ['paint'] });
       this.observers.push(fcpObserver);
 
-      // LCP Observer
       const lcpObserver = new PerformanceObserver((list) => {
         const entries = list.getEntries();
         const lastEntry = entries[entries.length - 1] as any;
@@ -271,7 +257,6 @@ export class PerformanceMonitor {
       lcpObserver.observe({ entryTypes: ['largest-contentful-paint'] });
       this.observers.push(lcpObserver);
 
-      // CLS Observer
       let clsValue = 0;
       const clsObserver = new PerformanceObserver((list) => {
         for (const entry of list.getEntries() as any[]) {
@@ -285,7 +270,6 @@ export class PerformanceMonitor {
       this.observers.push(clsObserver);
     }
 
-    // TTFB measurement
     const navigationEntry = performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming;
     if (navigationEntry) {
       this.metrics.ttfb = navigationEntry.responseStart - navigationEntry.requestStart;

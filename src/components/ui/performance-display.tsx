@@ -21,18 +21,13 @@ export function PerformanceDisplay({
   logMetrics = true,
   onMetrics 
 }: PerformanceDisplayProps) {
-  const [metrics, setMetrics] = useState<Partial<PerformanceMetrics>>({});
-  const [connectionInfo, setConnectionInfo] = useState<ReturnType<typeof getConnectionInfo>>({});
+  const [metrics, setMetrics] = useState<Partial<PerformanceMetrics>>({});  const [connectionInfo, setConnectionInfo] = useState<ReturnType<typeof getConnectionInfo>>({});
   const [isMobile, setIsMobile] = useState(false);
-  const [monitor, setMonitor] = useState<PerformanceMonitor | null>(null);
 
   useEffect(() => {
     // Only run in browser
-    if (typeof window === 'undefined') return;
-
-    // Initialize performance monitoring
+    if (typeof window === 'undefined') return;    // Initialize performance monitoring
     const perfMonitor = new PerformanceMonitor();
-    setMonitor(perfMonitor);
     setIsMobile(isMobileDevice());
     setConnectionInfo(getConnectionInfo());
 
@@ -46,9 +41,8 @@ export function PerformanceDisplay({
         console.log('FCP:', currentMetrics.fcp ? `${Math.round(currentMetrics.fcp)}ms` : 'N/A');
         console.log('LCP:', currentMetrics.lcp ? `${Math.round(currentMetrics.lcp)}ms` : 'N/A');
         console.log('CLS:', currentMetrics.cls ? currentMetrics.cls.toFixed(3) : 'N/A');
-        console.log('TTFB:', currentMetrics.ttfb ? `${Math.round(currentMetrics.ttfb)}ms` : 'N/A');
-        console.log('Device:', isMobile ? 'Mobile' : 'Desktop');
-        console.log('Connection:', connectionInfo.effectiveType || 'Unknown');
+        console.log('TTFB:', currentMetrics.ttfb ? `${Math.round(currentMetrics.ttfb)}ms` : 'N/A');        console.log('Device:', isMobileDevice() ? 'Mobile' : 'Desktop');
+        console.log('Connection:', getConnectionInfo().effectiveType || 'Unknown');
         console.groupEnd();
       }
       

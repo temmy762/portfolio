@@ -238,10 +238,8 @@ export function minifyCSS(css: string): string {
 /**
  * Extract critical CSS for specific viewport
  */
-export async function extractCriticalCSS(
-  html: string,
-  config: CriticalCSSConfig = DEFAULT_CRITICAL_CONFIG
-): Promise<string> {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export async function extractCriticalCSS(_html: string): Promise<string> {
   // In a production environment, you would use a tool like critical or puppeteer
   // For now, we return our predefined critical CSS
   return getCriticalCSS();
